@@ -15,14 +15,12 @@ const Userform:React.FC<Props> =({onSubmit})=>{
     })
 
     const userChange=(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>)=>{
-        console.log(e.target.name, e.target.value);
         setNewUser((prev)=>({
             ...prev,
             [e.target.name]: e.target.value,
         }))
     }
-    const checkboxChange=(e: React.ChangeEvent<HTMLInputElement>)=>{
-        console.log(e.target.name, e.target.checked);
+    const checkboxChange=(e: React.ChangeEvent<HTMLInputElement>)=>{      
         setNewUser((prev)=>({
             ...prev,
             [e.target.name]: e.target.checked,
@@ -31,16 +29,25 @@ const Userform:React.FC<Props> =({onSubmit})=>{
     
     const submitForm = (event: React.FormEvent)=>{
         event.preventDefault();
+
         onSubmit({
             id: Math.random().toString(),
             ...newUser,
+        })
+        setNewUser({
+            name: '',
+            email: '',
+            activity: false,
+            role: 'User',
         })
     }
 
     return(
         <>
             <form onSubmit={submitForm}>
-                Add new user
+                <h2 className="text-bg-dark p-2 rounded">
+                    Add new user
+                </h2>
                 <div className="form-group">
                     <label htmlFor="name">
                         Name
@@ -51,6 +58,7 @@ const Userform:React.FC<Props> =({onSubmit})=>{
                         type="text"
                         name="name"
                         id="name"
+                        value={newUser.name}
                         className="form-control"    
                     />
                 </div>
@@ -64,6 +72,7 @@ const Userform:React.FC<Props> =({onSubmit})=>{
                         type="text"
                         name="email"
                         id="email"
+                        value={newUser.email}
                         className="form-control"    
                     />
                 </div>
@@ -73,6 +82,7 @@ const Userform:React.FC<Props> =({onSubmit})=>{
                         type="checkbox"
                         name="activity"
                         id="activity"
+                        checked ={newUser.activity}
                         className="form-check-input" 
                     />
                     <label className="form-check-label ms-2" >
@@ -83,9 +93,9 @@ const Userform:React.FC<Props> =({onSubmit})=>{
                     <label htmlFor="role">
                         Role -
                     </label>
-                    <select className="ms-2" name="role" id="role" onChange={userChange}>
-                        <option value="Adnim">User</option>
-                        <option value="User">Adnim</option>
+                    <select className="ms-2" name="role" id="role" value={newUser.role} onChange={userChange}>
+                        <option value="User">User</option>
+                        <option value="Admin">Adnim</option>
                         <option value="Editor">Editor</option>
                     </select>
                 </div>
