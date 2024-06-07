@@ -29,15 +29,18 @@ const Userform:React.FC<Props> =({onSubmit})=>{
         }))
     }
     
-
+    const submitForm = (event: React.FormEvent)=>{
+        event.preventDefault();
+        onSubmit({
+            id: Math.random().toString(),
+            ...newUser,
+        })
+    }
 
     return(
         <>
-            <form>
-                <h2>
-                  Add new user  
-                </h2>
-                
+            <form onSubmit={submitForm}>
+                Add new user
                 <div className="form-group">
                     <label htmlFor="name">
                         Name
