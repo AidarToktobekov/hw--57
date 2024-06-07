@@ -21,7 +21,7 @@ const App=()=> {
             <Userform onSubmit={addUser}></Userform>
           </div>
           <div className="col-4">
-            <Users></Users>
+            <Users users={users}></Users>
           </div>
         </div>
       </main>
